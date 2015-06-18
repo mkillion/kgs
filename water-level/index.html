@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Mike Killion, Kansas Geological Survey">
+    <link rel="shortcut icon" href="http://www.kgs.ku.edu/favicon.ico" type="image/x-icon" />
+
+    <title>KGS Water Level Measurement</title>
+    
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">   
+    <link rel="stylesheet" href="../mappers-shared-code/css/bootstrapmap.css">
+    <link rel="stylesheet" href="css/water-level.css">
+
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    
+<!-- Layers modal: -->
+<div class="modal fade layers-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Show:</h4>
+                <div class="checkbox"><label><input type="checkbox" id="routes-chkbox" checked value="routes"> Routes</label></div>
+                <div class="radio"><label><input type="radio" name="lyrRadios" value="notvisited"> Only Wells Not Visited</label></div>
+                <div class="radio"><label><input type="radio" name="lyrRadios" value="measured"> Only Measured Wells</label></div>
+                <div class="radio"><label><input type="radio" name="lyrRadios" value="utm"> Only UTM Wells</label></div>
+                <div class="radio"><label><input type="radio" name="lyrRadios" value="all"> All Wells</label></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation header: -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="kgs-brand" href="#">Water Level Measurement</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown" id="basemapList">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basemaps <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Imagery</a></li>
+                        <li><a href="#">Topographic</a></li>
+                    </ul>
+                </li>
+                <li><a href="#layers" data-toggle="modal" data-target=".layers-modal">Layers</a></li>
+            </ul>
+        </div>  <!--/.nav-collapse -->
+    </div>  <!--/.container -->
+</div>  <!--/.navbar -->
+
+<!-- Map and table content panes: -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12" id="toggle-row">
+            <button id="toggleBtn" onclick="toggleTable()">Toggle Table</button>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3 table-wrapper" id="table-pane">
+            <div id="table-div"></div>
+        </div>
+        <div class="col-md-9 map-wrapper" id="map-pane">
+            <div id="map-div">
+                <div id="geolocator-btn"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../mappers-shared-code/js/dj-module-path.js"></script>
+<script src="http://js.arcgis.com/3.9compact"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+    
+</body>
+</html>
