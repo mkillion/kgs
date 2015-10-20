@@ -1,13 +1,13 @@
 var map;
 
 require(["esri/map", "esri/dijit/Scalebar", "application/bootstrapmap", "esri/dijit/LocateButton", "dojo/dom-construct", "esri/layers/FeatureLayer",
-         "esri/dijit/PopupMobile", "esri/dijit/PopupTemplate", "esri/InfoTemplate", "esri/renderers/UniqueValueRenderer", "esri/symbols/PictureMarkerSymbol", "dojo/domReady!"], 
+         "esri/dijit/PopupMobile", "esri/dijit/PopupTemplate", "esri/InfoTemplate", "esri/renderers/UniqueValueRenderer", "esri/symbols/PictureMarkerSymbol", "dojo/domReady!"],
 function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, PopupMobile, PopupTemplate, InfoTemplate, UniqueValueRenderer, PictureMarkerSymbol) {
-    
+
     var popup = new PopupMobile(null, domConstruct.create("div"));
     var popupTemplate = new InfoTemplate("${LOCAL_WELL_NUMBER}",
         "<b>USGS ID:</b> ${USGS_ID}<br><b>ACCESS:</b> ${WELL_ACCESS}");
-    
+
     map = BootstrapMap.create("map-div", {
         basemap: "topo",
         center: [-101, 38.5],
@@ -20,24 +20,24 @@ function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, 
         map: map,
         scalebarUnit: "dual"
     });
-    
+
     var geoLocate = new LocateButton({
         map: map
     }, "geolocator-btn");
     geoLocate.startup();
-    
-    //plssLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://services.kgs.ku.edu/arcgis/rest/services/PLSS/plss_for_wws/MapServer"); 
-    routesLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://services.kgs.ku.edu/arcgis/rest/services/water_well_sampling/ww_sampling/MapServer");
+
+    //plssLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://services.kgs.ku.edu/arcgis/rest/services/PLSS/plss_for_wws/MapServer");
+    routesLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://services.kgs.ku.edu/arcgis1/rest/services/water_level/ww_sampling/MapServer");
     routesLayer.setVisibleLayers([1,2,3,4]);
-    
-    wellsLayer = new FeatureLayer("http://services.kgs.ku.edu/arcgis/rest/services/water_well_sampling/ww_sampling/MapServer/0", {
+
+    wellsLayer = new FeatureLayer("http://services.kgs.ku.edu/arcgis1/rest/services/water_level/ww_sampling/MapServer/0", {
         mode: FeatureLayer.MODE_ONDEMAND,
         infoTemplate: popupTemplate,
         outFields: ["*"]
     });
-    
+
     map.addLayers([routesLayer, wellsLayer]);
-    
+
     // Define renderer for wells layer:
     var defaultSymbol = new PictureMarkerSymbol("http://static.arcgis.com/images/Symbols/NPS/npsPictograph_0077b.png", 20, 25);
     var renderer = new UniqueValueRenderer(defaultSymbol, "MEASUREMENT_STATUS");
@@ -47,7 +47,7 @@ function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, 
     renderer.addValue("1", new PictureMarkerSymbol("http://static.arcgis.com/images/Symbols/Shapes/GreenCircleLargeB.png", 35, 35));
     /*renderer.addValue("0", new PictureMarkerSymbol("http://static.arcgis.com/images/Symbols/AtoZ/redU.png", 20, 25));*/
     renderer.addValue("0", new PictureMarkerSymbol("http://static.arcgis.com/images/Symbols/Shapes/RedDiamondLargeB.png", 35, 35));
-    
+
     wellsLayer.setRenderer(renderer);
 }); // end dj require.
 
@@ -55,7 +55,7 @@ function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, 
 
 $(document).ready(function(){
     updateTable();
-    
+
     // Basemap options kept for future reference - not all are used here:
     $("#basemapList li").click(function(e) {
         switch (e.target.text) {
@@ -79,11 +79,11 @@ $(document).ready(function(){
                 break;
         }
     });
-    
+
     $("#routes-chkbox").change(function() {
-        routesLayer.visible ? routesLayer.hide() : routesLayer.show();  
+        routesLayer.visible ? routesLayer.hide() : routesLayer.show();
     });
-    
+
     $(":radio").change(function(e) {
         switch (e.target.value) {
             case "notvisited":
@@ -98,7 +98,7 @@ $(document).ready(function(){
             case "all":
                 filterWells("all");
                 break;
-        }  
+        }
     });
 }); // end jq ready.
 
@@ -133,7 +133,7 @@ function toggleTable() {
     } else {
         $("#table-pane").show();
         $("#map-pane").removeClass("col-md-12");
-        $("#map-pane").addClass("col-md-9"); 
+        $("#map-pane").addClass("col-md-9");
     }
     map.resize();
     map.reposition();
