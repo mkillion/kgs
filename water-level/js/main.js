@@ -28,7 +28,7 @@ function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, 
 
     //plssLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://services.kgs.ku.edu/arcgis/rest/services/PLSS/plss_for_wws/MapServer");
     routesLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://services.kgs.ku.edu/arcgis2/rest/services/water_level/ww_sampling/MapServer");
-    routesLayer.setVisibleLayers([1,2,3,4]);
+    routesLayer.setVisibleLayers([1]);
 
     wellsLayer = new FeatureLayer("http://services.kgs.ku.edu/arcgis2/rest/services/water_level/ww_sampling/MapServer/0", {
         mode: FeatureLayer.MODE_ONDEMAND,
