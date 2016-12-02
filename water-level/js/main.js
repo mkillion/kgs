@@ -21,10 +21,10 @@ function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, 
         scalebarUnit: "dual"
     });
 
-    var geoLocate = new LocateButton({
-        map: map
-    }, "geolocator-btn");
-    geoLocate.startup();
+    // var geoLocate = new LocateButton({
+    //     map: map
+    // }, "geolocator-btn");
+    // geoLocate.startup();
 
     plssLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://services.kgs.ku.edu/arcgis8/rest/services/PLSS/plss");
     routesLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://services.kgs.ku.edu/arcgis8/rest/services/water_level/ww_sampling/MapServer");
