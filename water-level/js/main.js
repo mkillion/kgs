@@ -1,12 +1,14 @@
 var map;
 
 require(["esri/map", "esri/dijit/Scalebar", "application/bootstrapmap", "esri/dijit/LocateButton", "dojo/dom-construct", "esri/layers/FeatureLayer",
-         "esri/dijit/PopupMobile", "esri/dijit/PopupTemplate", "esri/InfoTemplate", "esri/renderers/UniqueValueRenderer", "esri/symbols/PictureMarkerSymbol", "dojo/domReady!"],
-function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, PopupMobile, PopupTemplate, InfoTemplate, UniqueValueRenderer, PictureMarkerSymbol) {
+         "esri/dijit/Popup", "esri/dijit/PopupTemplate", "esri/InfoTemplate", "esri/renderers/UniqueValueRenderer", "esri/symbols/PictureMarkerSymbol", "dojo/domReady!"],
+function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, Popup, PopupTemplate, InfoTemplate, UniqueValueRenderer, PictureMarkerSymbol) {
 
-    var popup = new PopupMobile(null, domConstruct.create("div"));
+    var popup = new Popup(null, domConstruct.create("div"));
     var popupTemplate = new InfoTemplate("${LOCAL_WELL_NUMBER}",
         "<b>USGS ID:</b> ${USGS_ID}<br><b>ACCESS:</b> ${WELL_ACCESS}");
+    // var popupTemplate = new InfoTemplate("${LOCAL_WELL_NUMBER}",
+    //     " ");
 
     map = BootstrapMap.create("map-div", {
         basemap: "topo",
