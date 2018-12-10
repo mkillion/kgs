@@ -51,6 +51,9 @@ function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, 
     renderer.addValue("0", new PictureMarkerSymbol("http://static.arcgis.com/images/Symbols/Shapes/RedDiamondLargeB.png", 35, 35));
 
     wellsLayer.setRenderer(renderer);
+
+    setTimeout(refreshMap, 60000);
+
 }); // end dj require.
 
 
@@ -139,4 +142,11 @@ function toggleTable() {
     }
     map.resize();
     map.reposition();
+}
+
+
+function refreshMap() {
+    wellsLayer.refresh();
+    updateTable();
+    setTimeout(refreshMap, 60000);
 }
