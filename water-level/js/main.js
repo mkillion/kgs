@@ -54,6 +54,18 @@ function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, 
 
     setTimeout(refreshMap, 60000);
 
+    if ( localStorage.getItem("kgswl_table") === "closed" ) {
+        $("#table-pane").hide();
+        $("#map-pane").removeClass("col-md-9");
+        $("#map-pane").addClass("col-md-12");
+    } else {
+        $("#table-pane").show();
+        $("#map-pane").removeClass("col-md-12");
+        $("#map-pane").addClass("col-md-9");
+    }
+    map.resize();
+    map.reposition();
+
 }); // end dj require.
 
 
@@ -135,10 +147,12 @@ function toggleTable() {
         $("#table-pane").hide();
         $("#map-pane").removeClass("col-md-9");
         $("#map-pane").addClass("col-md-12");
+        localStorage.setItem("kgswl_table", "closed");
     } else {
         $("#table-pane").show();
         $("#map-pane").removeClass("col-md-12");
         $("#map-pane").addClass("col-md-9");
+        localStorage.setItem("kgswl_table", "open");
     }
     map.resize();
     map.reposition();
