@@ -32,11 +32,13 @@ function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, 
     routesLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://services.kgs.ku.edu/arcgis8/rest/services/water_level/ww_sampling/MapServer");
     routesLayer.setVisibleLayers([1]);
 
-    wellsLayer = new FeatureLayer("http://services.kgs.ku.edu/arcgis8/rest/services/water_level/ww_sampling/MapServer/0", {
-        mode: FeatureLayer.MODE_ONDEMAND,
-        infoTemplate: popupTemplate,
-        outFields: ["*"]
-    });
+    // wellsLayer = new FeatureLayer("http://services.kgs.ku.edu/arcgis8/rest/services/water_level/ww_sampling/MapServer/0", {
+    //     mode: FeatureLayer.MODE_ONDEMAND,
+    //     infoTemplate: popupTemplate,
+    //     outFields: ["*"]
+    // });
+    wellsLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://services.kgs.ku.edu/arcgis8/rest/services/water_level/ww_sampling/MapServer");
+    wellsLayer.setDisableClientCaching(true);
 
     map.addLayers([routesLayer, wellsLayer]);
 
@@ -50,9 +52,11 @@ function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, 
     /*renderer.addValue("0", new PictureMarkerSymbol("http://static.arcgis.com/images/Symbols/AtoZ/redU.png", 20, 25));*/
     renderer.addValue("0", new PictureMarkerSymbol("http://static.arcgis.com/images/Symbols/Shapes/RedDiamondLargeB.png", 35, 35));
 
-    wellsLayer.setRenderer(renderer);
+    // wellsLayer.setRenderer(renderer);
 
     setTimeout(refreshMap, 60000);
+
+    // /map.extent = JSON.parse(localStorage.getItem("kgswl-ext"));
 
     if ( localStorage.getItem("kgswl_table") === "closed" ) {
         $("#table-pane").hide();
@@ -65,6 +69,8 @@ function(Map, Scalebar, BootstrapMap, LocateButton, domConstruct, FeatureLayer, 
     }
     map.resize();
     map.reposition();
+
+    // /dojo.connect(map, "onExtentChange", saveExtent);
 
 }); // end dj require.
 
@@ -120,6 +126,11 @@ $(document).ready(function(){
 }); // end jq ready.
 
 
+// /function saveExtent() {
+//     localStorage.setItem("kgswl-ext", JSON.stringify(map.extent));
+// }
+
+
 function updateTable() {
     $.ajax({
         url: "track-table.cfm",
@@ -162,5 +173,6 @@ function toggleTable() {
 function refreshMap() {
     wellsLayer.refresh();
     updateTable();
+    // location.reload();
     setTimeout(refreshMap, 60000);
 }
